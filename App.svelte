@@ -35,6 +35,8 @@
   }
   :global(body) {
     background-color: var(--ambient, #fff);
+    margin: 0;
+    padding: 0;
   }
 
   main {
@@ -47,7 +49,7 @@
     height: 100vh;
   }
 
-  svg {
+  .room {
     width: 90vmin;
     height: 90vmin;
   }
@@ -61,7 +63,12 @@
     }
   }
 
-  circle {
+  .circle {
+    border: 8vmin solid var(--primary);
+    background: transparent;
+    border-radius: 100vmin;
+    height: 100%;
+    box-sizing: border-box;
     animation-name: pulse;
     animation-duration: 4286ms;
     transform-origin: center center;
@@ -93,19 +100,25 @@
     padding: 0;
     cursor: pointer;
   }
+  .st {
+    margin-top: 1rem;
+  }
 </style>
 
 <main>
   {#if done}
   <div class="ready">Done</div>
   {:else if ready}
-  <svg viewBox="0 0 100 100">
+  <!--<svg viewBox="0 0 100 100">
     <circle cx="50" cy="50" r="45" stroke="#ff3e00" stroke-width="8" fill="none" />
-  </svg>
+  </svg>-->
+  <div class="room">
+    <div class="circle"></div>
+  </div>
   {:else}
   <div class="ready">
-    <div>Breathe for 5 min</div>
-    <div>Ready?</div>
+    <div>Breathe</div><div>for 5 min</div>
+    <div class="st">Ready?</div>
     <button type="button" on:click|once={start}>{#if countdown > 0}{countdown}{:else}Go{/if}</button>
   </div>
   {/if}
