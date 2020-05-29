@@ -100,7 +100,7 @@
   <div class="ready">Done</div>
   {:else if ready}
   <svg viewBox="0 0 100 100">
-    <circle cx="50" cy="50" r="45" stroke="#ff3e00" stroke-width="10" fill="none" />
+    <circle cx="50" cy="50" r="45" stroke="#ff3e00" stroke-width="8" fill="none" />
   </svg>
   {:else}
   <div class="ready">
