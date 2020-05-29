@@ -1,8 +1,7 @@
 <script>
-  import { onMount } from "svelte";
   let ready = false;
   let done = false;
-  let countdown = 7;
+  let countdown = 0;
 
   function finish() {
     done = true;
@@ -18,12 +17,26 @@
     }
   }
 
-  onMount(() => {
+  function start() {
+    countdown = 7;
     setTimeout(dec, 1000);
-  });
+  }
 </script>
 
 <style>
+  :global(:root) {
+    --primary: #ff3e00;
+    --ambient: #fff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :global(:root) {
+      --ambient: #111;
+    }
+  }
+  :global(body) {
+    background-color: var(--ambient, #fff);
+  }
+
   main {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
       Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
@@ -61,8 +74,24 @@
     font-size: 3rem;
     font-weight: 100;
     text-transform: uppercase;
-    color: #ff3e00;
+    color: var(--primary);
     text-align: center;
+  }
+
+  button {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    border-radius: 9000px;
+    border: 1px solid var(--primary);
+    background-color: transparent;
+    color: var(--primary);
+    font-size: 2rem;
+    font-weight: 100;
+    text-transform: uppercase;
+    width: 4rem;
+    height: 4rem;
+    padding: 0;
+    cursor: pointer;
   }
 </style>
 
@@ -71,12 +100,13 @@
   <div class="ready">Done</div>
   {:else if ready}
   <svg viewBox="0 0 100 100">
-    <circle cx="50" cy="50" r="50" fill="#ff3e00"/>
+    <circle cx="50" cy="50" r="45" stroke="#ff3e00" stroke-width="10" fill="none" />
   </svg>
   {:else}
   <div class="ready">
+    <div>Breathe for 5 min</div>
     <div>Ready?</div>
-    <div>{countdown}</div>
+    <button type="button" on:click|once={start}>{#if countdown > 0}{countdown}{:else}Go{/if}</button>
   </div>
   {/if}
 </main>
